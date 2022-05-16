@@ -1,3 +1,273 @@
-body {
+﻿/* DEFAULT STYLES */
+html {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
+*, ::before, ::after {
+    box-sizing: inherit;
+    font-family: inherit;
+}
+
+body {
+    margin: 0;
+}
+
+.container{
+    max-width: 100%;
+    padding: 16px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div#footer {
+    text-align: center;
+}
+
+img {
+    display: block;
+}
+
+.flex {
+    display: flex;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.column {
+    flex-direction: column;
+}
+
+fab {
+    box-sizing: border-box;
+    color: rgb(68, 68, 68);
+    background-color: white;
+    outline-width: 0;
+    font-size: 18px;
+    font-weight: 400;
+    height: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+    background-color: rgb(238, 238, 238);
+    border-radius: 6px;
+    outline: none;
+}
+
+/* Profile Section */
+.profile-title {
+    padding-left: 1em;
+}
+
+.profile-img {
+    width: 8em;
+    height: 8em;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-delete-btn {
+    background-color: red;
+    color: white;
+}
+
+.profile-edit-btn {
+    
+}
+
+/* Dashboard Table */
+
+.flat-table {
+    display: block;
+    font-size: 100%;
+    overflow: auto;
+    width: auto;
+}
+
+th {
+    background-color: rgb(52, 55, 60);
+    color: white;
+    font-weight: normal;
+    padding: 10px 15px;
+    text-align: center;
+    font-weight: 800;
+}
+
+td {
+    background-color: rgb(238, 238, 238);
+    color: rgb(50, 50, 50);
+    padding: 8px 12px;
+    text-align: center;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #4C8BF5;
+    color: #fff;
+}
+
+/* DROPDOWN FUNCTIONALITY */
+nav details {
+    position: relative; /* Make the <ul> element's position relative to this element */
+    display: inline-block; /* Allow multiple <details> elements on the same line */
+    cursor: pointer; /* Change the cursor to a hand so users can tell they can interact */
+}
+
+nav summary::marker {
+    content: ""; /* Remove the marker (Defaults to  "⯈ ", or  "⯆ " inside details[open]) */
+}
+
+nav ul {
+    position: absolute; /* Break the <ul> out of the page and position it relative to the <details> element */
+    z-index: 2; /* Place the <ul> element above the ::before element */
+}
+
+nav details[open] summary::before {
+    content: ""; /* Adding content to the ::before element causes it to exist, as the first child of <summary> */
+    position: fixed; /* Cover the whole page, so that clicking anywhere will close the details element */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1; /* Place the ::before element above everything else */
+    cursor: default; /* Change the cursor back to the default */
+}
+
+nav {
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+/* AESTHETICS */
+nav {
+    background-color: darkslateblue;
+    color: white;
+    font-size: 1rem;
+    padding: 0.25rem;
+}
+
+    nav a {
+        display: inline-block;
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem
+    }
+
+        nav a:hover {
+            background-color: slateblue;
+        }
+
+    nav summary {
+        padding: 0.5rem 1rem;
+    }
+
+        nav details[open] summary, nav summary:hover {
+            background-color: slateblue;
+            border-radius: 0.25rem;
+        }
+
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0.5rem 0;
+        background-color: darkslateblue;
+        border-radius: 0.25rem;
+    }
+
+    nav li a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+    }
+
+        nav li a:hover {
+            background-color: slateblue;
+        }
+
+    /* RESPONSIVE */
+    nav details {
+        display: none;
+    }
+
+    /* RESPONSIVE */
+    nav a {
+        display: none;
+    }
+
+    nav .mobile-only {
+        display: inline-block;
+        border: 1px solid white;
+        border-radius: 0.25rem;
+    }
+
+@media (min-width: 600px) {
+    nav details {
+        display: inline-block;
+    }
+
+    nav a {
+        display: inline-block;
+    }
+
+    nav .mobile-only {
+        display: none;
+    }
+}
+
+/* Form */
+
+form {
+    height: 520px fit-content;
+    width: 400px;
+    margin: auto;
+    background-color: rgba(255,255,255,0.13);
+    border-radius: 10px;
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 16px rgba(8,7,16,0.2);
+    padding: 50px 35px;
+}
+
+    form * {
+        letter-spacing: 0.5px;
+        outline: none;
+        border: none;
+    }
+
+    form h3 {
+        font-size: 32px;
+        font-weight: 500;
+        line-height: 42px;
+        text-align: center;
+    }
+
+label {
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+input {
+    display: block;
+    height: 50px;
+    width: 100%;
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+}
+
+::placeholder {
+    color: #e5e5e5;
 }
