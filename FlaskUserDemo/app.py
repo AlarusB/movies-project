@@ -112,7 +112,7 @@ def add_movie():
                     request.form['title'],
                     request.form['genre'],
                     request.form['year_released'],
-                    request.form['summary'],,
+                    request.form['summary'],
                     poster_filename
                 )
         return redirect(url_for('home'))
