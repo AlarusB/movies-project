@@ -95,6 +95,30 @@ def add_user():
         return redirect(url_for('home'))
     return render_template('users_add.html')
 
+# Page for adding movies
+@app.route('/addmovie', methods=['GET', 'POST'])
+def add_movie():
+    if request.method == 'POST':
+
+        poster_filename = None    
+
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = """INSERT INTO users
+                    (title, genre, year_released, summary, poster_filename)
+                    VALUES (%s, %s, %s, %s, %s)
+                """
+                values = (
+                    request.form['title'],
+                    request.form['genre'],
+                    request.form['year_released'],
+                    request.form['summary'],,
+                    poster_filename
+                )
+        return redirect(url_for('home'))
+    return render_template('movies_add.html')
+
+
 # TODO: Add a '/dashboard' (list_users) route that uses SELECT
 @app.route('/dashboard')
 def list_users():

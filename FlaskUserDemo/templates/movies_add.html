@@ -1,0 +1,26 @@
+{% extends '_layout.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    <h3>Add a movie</h3>
+    <label for="title">Title:</label>
+    <input id="title" name="title" autocomplete="off" required>
+
+    <label for="last_name">Last Name:</label>
+    <input id="genre" name="genre" autocomplete="off" required>
+
+    <label for="year_released">Year Releasead:</label>
+    <select id="year_released" name="year_released" autocomplete="off" required>
+        <option>year</option>
+
+        {% for i in range(1990, 2020) %}
+        <option>{{i}}</option>
+        {% endfor %}
+    </select>
+    <label for="summary">Summary:</label>
+    <textarea style="resize:none" id="summary" name="summary"cols="2" rows="80"></textarea>
+    <input type="submit" value="Sign Up" autocomplete="off" required>
+</form>
+{% endblock %}
