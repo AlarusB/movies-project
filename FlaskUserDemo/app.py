@@ -104,7 +104,7 @@ def add_movie():
 
         with create_connection() as connection:
             with connection.cursor() as cursor:
-                sql = """INSERT INTO users
+                sql = """INSERT INTO movies
                     (title, genre, year_released, summary, poster_filename)
                     VALUES (%s, %s, %s, %s, %s)
                 """
@@ -115,6 +115,8 @@ def add_movie():
                     request.form['summary'],
                     poster_filename
                 )
+                cursor.execute(sql, values)
+                connection.commit()
         return redirect(url_for('home'))
     return render_template('movies_add.html')
 
