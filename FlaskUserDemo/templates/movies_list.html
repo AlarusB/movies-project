@@ -1,0 +1,30 @@
+{% extends '_layout.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<table class="flat-table">
+    <tr>
+        <th>Title</th>
+        <th>Genre</th>
+        <th>Year Released</th>
+        <th>Summary</th>
+        <th>Actions</th>
+    </tr>
+    {% for row in result %}
+    <tr>
+        <td>{{ row.title }}</td>
+        <td>{{ row.genre }}</td>
+        <td>{{ row.year_released }}</td>
+        <td>{{ row.summary }}</td>
+        <td>
+            <a href="/view?id={{ row.id }}">View</a>
+            <a href="/edit?id={{ row.id }}">Edit</a>
+            <a href="/watchmovie?user_id={{ session.id }}&movie_id={{ row.id }}">Watch</a>
+            <a href="/delete?id={{ row.id }}" onclick="return confirm('Are you sure? you want to delete {{row.first_mame }} {{ row.last_name }}')">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<a href="{{ url_for('add_movie') }}">Add a new movie</a>
+{% endblock %}

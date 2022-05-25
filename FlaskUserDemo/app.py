@@ -133,6 +133,17 @@ def list_users():
             result = cursor.fetchall()
     return render_template('users_list.html', result=result)
 
+# TODO: Add a '/movi' (list_users) route that uses SELECT
+@app.route('/movies')
+def list_movies():
+
+    with create_connection() as connection:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM movies")
+            result = cursor.fetchall()
+    return render_template('movies_list.html', result=result)
+
+
 # TODO: Add a '/profile' (view_user) route that uses SELECT
 @app.route('/view')
 def view_user():
@@ -162,8 +173,41 @@ def delete_user():
         return redirect(url_for('logout'))
     else:
         return redirect(url_for('list_users'))
-# TODO: Add an '/edit_user' route that uses UPDATE
 
+@app.route('/deletemovie')
+def delete_movie():
+
+    if session['role'] != 'admin' and str(session['id']) != request.args['id']:
+        return abort(404)
+    with create_connection() as connection:
+        with connection.cursor() as cursor:
+            sql = "DELETE FROM movies WHERE id = %s"
+            values = (
+                request.args['id']
+            )
+            cursor.execute(sql, values)
+            connection.commit()
+        
+    return redirect(url_for('home'))
+
+@app.route('/watchmovie')
+def watch_movie():
+
+    if session['role'] != 'admin' and str(session['id']) != request.args['user_id']:
+        return abort(404)
+    with create_connection() as connection:
+        with connection.cursor() as cursor:
+            sql = "INSERT INTO users_movies (user_id, movie_id) VALUES (%s, %s)"
+            values = (
+                request.args['user_id'],
+                request.args['movie_id']
+            )
+            cursor.execute(sql, values)
+            connection.commit()
+        
+    return redirect(url_for('home'))
+
+# TODO: Add an '/edit_user' route that uses UPDATE
 @app.route('/edit', methods=['GET', 'POST'])
 def edit_user():
 
