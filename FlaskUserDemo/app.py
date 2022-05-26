@@ -195,8 +195,21 @@ def watch_movie():
 
     if session['role'] != 'admin' and str(session['id']) != request.args['user_id']:
         return abort(404)
+
+   
     with create_connection() as connection:
         with connection.cursor() as cursor:
+            # Check if entry already exists, if so then do not commit
+            sql = "SELECT id FROM users_movies WHERE user_id = %s AND movie_id = %s"
+            values = (
+                request.args['user_id'],
+                request.args['movie_id']
+            )
+            cursor.execute(sql, values)
+            result = cursor.fetchone()
+            if result:
+                 return redirect(url_for('home'))
+
             sql = "INSERT INTO users_movies (user_id, movie_id) VALUES (%s, %s)"
             values = (
                 request.args['user_id'],
