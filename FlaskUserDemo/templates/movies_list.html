@@ -3,6 +3,41 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
+
+<div class="hero-image">
+    <div class="hero-text">
+        <h1 class="hero-header">bloom</h1>
+        <p>inner and outer self-care</p>
+    </div>
+</div>
+
+<div class="container-crop">
+    <div id="itemContainer">
+        <ol id="itemListMovies">
+            {% for movie in result %}
+            <li id="" class="list-item">
+
+                <img class="movie-img" src="{{ url_for('static', filename='images/' + ('default.png')) }}" alt="">
+
+                <h2>
+                    <a href="/movies/78slash52/" title="View detailed information on {{ movie.title }} ({{ movie.year_released }})">{{ movie.title }}</a>
+                    <a title="Movie released in {{ movie.year_released }}">({{ movie.year_released }})</a>               
+                </h2>
+
+                <a href="/login/" class="checkbox" title="Watch {{ movie.title }}"><span>Watch</span></a>
+                <p>
+                    Genre {{ movie.genre }}
+                </p>
+                <p class="movie-desc">
+                    {{ movie.summary }}
+                </p>
+                
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+</div>
+
 <table class="flat-table">
     <tr>
         <th>Title</th>
