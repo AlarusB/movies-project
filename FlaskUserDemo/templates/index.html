@@ -3,7 +3,7 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% if session['role'] == 'Admin' %}
+{% if session['role'] == 'admin' %}
     <a href="{{ url_for('list_users') }}">View All Users</a>
     <a href="{{ url_for('list_movies') }}">View movies!</a>
 {% elif 'logged_in' in session %}

@@ -15,23 +15,41 @@
     <div id="itemContainer">
         <ol id="itemListMovies">
             {% for movie in result %}
-            <li id="" class="list-item">
+            <li id="" class="list-item flex row">
+                <div class="flex column">
+                    <div class="flex row">
+                        <img class="movie-img" src="{{ url_for('static', filename='images/' + ('default.png')) }}" alt="">
+                        <div>
+                            <h2>
+                                <a href="/movies" title="View detailed information on {{ movie.title }} ({{ movie.year_released }})">{{ movie.title }}</a>
+                                <a title="Movie released in {{ movie.year_released }}">({{ movie.year_released }})</a>
+                            </h2>
+                            <h3>
+                                Genre {{ movie.genre }}
+                            </h3>
+                        </div>
+                    </div>
 
-                <img class="movie-img" src="{{ url_for('static', filename='images/' + ('default.png')) }}" alt="">
+                    <p class="movie-desc">
+                        {{ movie.summary }}
+                    </p>
+                </div>
 
-                <h2>
-                    <a href="/movies/78slash52/" title="View detailed information on {{ movie.title }} ({{ movie.year_released }})">{{ movie.title }}</a>
-                    <a title="Movie released in {{ movie.year_released }}">({{ movie.year_released }})</a>               
-                </h2>
+                <ul class="optionIconMenu flex row lastflex">
+                    {% if session['role'] == 'admin' %}
+                    <li>
+                        <a href="/editmovie?id={{ movie.id }}">Edit</a>
+                    </li>
 
-                <a href="/login/" class="checkbox" title="Watch {{ movie.title }}"><span>Watch</span></a>
-                <p>
-                    Genre {{ movie.genre }}
-                </p>
-                <p class="movie-desc">
-                    {{ movie.summary }}
-                </p>
-                
+                    <li>
+                        <a href="/deletemovie?id={{ movie.id }}" onclick="return confirm('Are you sure? you want to delete {{movie.title }} ({{ movie.year_released }})')">Delete</a>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <a href="{{ url_for('view_user', user_id=session.id, movie_id=movie.id) }}" class="checkbox" title="Watch {{ movie.title }}">Watch</a>
+                    </li>
+                </ul>
+
             </li>
             {% endfor %}
         </ol>
@@ -53,10 +71,10 @@
         <td>{{ row.year_released }}</td>
         <td>{{ row.summary }}</td>
         <td>
-            <a href="/view?id={{ row.id }}">View</a>
-            <a href="/edit?id={{ row.id }}">Edit</a>
+            <a href="/viewmovie?id={{ row.id }}">View</a>
+            <a href="/editmovie?id={{ row.id }}">Edit</a>
             <a href="/watchmovie?user_id={{ session.id }}&movie_id={{ row.id }}">Watch</a>
-            <a href="/delete?id={{ row.id }}" onclick="return confirm('Are you sure? you want to delete {{row.first_mame }} {{ row.last_name }}')">Delete</a>
+            <a href="/deletemovie?id={{ row.id }}" onclick="return confirm('Are you sure? you want to delete {{row.first_mame }} {{ row.last_name }}')">Delete</a>
         </td>
     </tr>
     {% endfor %}

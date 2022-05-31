@@ -309,29 +309,23 @@ ul, ol {
 }
 
 .movie-img {
-    background-position: left center;
-    background-repeat: no-repeat;
-    float: left;
-    height: 100%;
-    margin: 0 8px 0 0;
-    position: relative;
-    width: 30px;
-    z-index: 10;
+    height: 4em;
+
+    width: 4em;
+
 }
 
 .checkbox {
-    border: 0 none;
-    display: block;
-    height: 32px;
-    margin: -16px 0 0;
-    position: absolute;
-    right: 6px;
-    top: 50%;
-    width: 36px;
-    z-index: 100;
+
 }
 
 .container-crop {
     width: 830px;
     margin: 0 auto;
+}
+
+.lastflex {
+    margin-left: auto;
+    margin-top:auto;
+    margin-bottom:auto;
 }
