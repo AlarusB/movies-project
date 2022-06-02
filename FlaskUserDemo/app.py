@@ -149,8 +149,14 @@ def list_movies():
 def view_user():
     with create_connection() as connection:
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM users WHERE id=%s", request.args['id'])
-            result = cursor.fetchone()
+            sql = """SELECT * FROM users
+                    JOIN users_movies AS a ON a.user_id = users.id
+                    JOIN movies ON movies.id = a.movie_id WHERE users.id=%s"""
+            values = (
+                request.args['id']
+            )
+            cursor.execute(sql, values)
+            result = cursor.fetchall()
     return render_template('users_view.html', result=result)
 
 # TODO: Add a '/delete_user' route that uses DELETE
@@ -214,6 +220,32 @@ def watch_movie():
             values = (
                 request.args['user_id'],
                 request.args['movie_id']
+            )
+            cursor.execute(sql, values)
+            connection.commit()
+        
+    return redirect(url_for('home'))
+
+@app.route('/unwatchmovie')
+def unwatch_movie():
+   
+    with create_connection() as connection:
+        with connection.cursor() as cursor:
+            sql = "SELECT * FROM users_movies WHERE user_id = %s AND movie_id = %s"
+            values = (
+                request.args['user_id'],
+                request.args['movie_id']
+            )
+            cursor.execute(sql, values)
+            result = cursor.fetchone()
+            print(result['user_id'])
+            print(str(session['id']))
+            if session['role'] != 'admin' and str(session['id']) != result['user_id']:
+                return abort(404)
+
+            sql = "DELETE FROM users_movies WHERE id = %s"
+            values = (
+                result['id']
             )
             cursor.execute(sql, values)
             connection.commit()
